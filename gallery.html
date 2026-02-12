@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Gallery - Shree Swami Samarth Classes</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --orange: #FF6B00;
+            --black: #1A1A1A;
+            --white: #FFFFFF;
+            --grey: #F5F5F5;
+            --track: #E0E0E0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--grey); overflow-x: hidden; }
+        .container { max-width: 1400px; margin: 40px auto; padding: 0 20px; }
+
+        .header-title { text-align: center; margin-bottom: 40px; }
+        .header-title h1 { font-size: 2.5rem; font-weight: 800; }
+        .header-title span { color: var(--orange); }
+
+        /* --- GALLERY CONTAINER --- */
+        .gallery-container {
+            position: relative;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 45px 5px;
+            scroll-behavior: smooth;
+            scrollbar-width: none; 
+        }
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+        .gallery-item {
+            flex: 0 0 calc(20% - 12px); 
+            min-width: 200px;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Hover Effects */
+        .horizontal-scroll:hover .gallery-item { opacity: 0.9; filter: blur(0.8px); transform: scale(0.97); }
+        .gallery-item:hover { 
+            opacity: 1 !important; filter: blur(0) !important; 
+            transform: scale(1.1) translateY(-12px) !important; 
+            z-index: 10; border: 2px solid var(--orange);
+        }
+
+        /* Home Gallery Arrows */
+        .nav-btn {
+            position: absolute;
+            top: 45%; transform: translateY(-50%);
+            width: 48px; height: 48px; background: var(--orange);
+            color: white; border: none; border-radius: 50%; cursor: pointer;
+            z-index: 20; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .prev-btn { left: -15px; } .next-btn { right: -15px; }
+
+        /* --- LIGHTBOX (STABLE ARROWS) --- */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            display: none;
+            justify-content: center; align-items: center;
+            z-index: 1000;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 85%;
+            max-height: 85vh;
+            border: 3px solid white;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .close-lightbox {
+            position: absolute; top: 25px; right: 35px;
+            color: white; font-size: 3rem; cursor: pointer;
+            z-index: 1010; transition: 0.3s;
+        }
+        .close-lightbox:hover { color: var(--orange); }
+
+        /* Stable Arrows in Lightbox */
+        .l-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 65px;
+            height: 65px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1010;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .l-btn:hover { background: var(--orange); }
+        .l-prev { left: 30px; }
+        .l-next { right: 30px; }
+
+        /* Sliding Line */
+        .scroll-track { width: 180px; height: 5px; background: var(--track); margin: 10px auto; border-radius: 10px; position: relative; }
+        .scroll-thumb { width: 45px; height: 100%; background: var(--orange); border-radius: 10px; position: absolute; left: 0; transition: transform 0.1s linear; }
+
+        footer { text-align: center; padding: 40px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-title">
+            <h1>Our <span>Gallery</span></h1>
+            <p>Click photos to see them in fullscreen mode</p>
+        </div>
+
+        <div class="gallery-container">
+            <button class="nav-btn prev-btn" onclick="scrollGallery(-1)"><i class="fas fa-chevron-left"></i></button>
+            <div class="horizontal-scroll" id="gallery-scroll">
+                <div class="gallery-item" onclick="openLightbox(0)"><img src="image.png"></div>
+                <div class="gallery-item" onclick="openLightbox(1)"><img src="image1.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(2)"><img src="image2.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(3)"><img src="image3.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(4)"><img src="image4.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(5)"><img src="image5.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(6)"><img src="image6.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(7)"><img src="image7.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(8)"><img src="image8.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(9)"><img src="image9.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(10)"><img src="image10.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(11)"><img src="image11.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(12)"><img src="image12.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(13)"><img src="image13.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(14)"><img src="image14.jpg"></div>
+                <div class="gallery-item" onclick="openLightbox(15)"><img src="image15.jpg"></div>
+            </div>
+            <button class="nav-btn next-btn" onclick="scrollGallery(1)"><i class="fas fa-chevron-right"></i></button>
+
+            <div class="scroll-track"><div class="scroll-thumb" id="thumb"></div></div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        
+        <button class="l-btn l-prev" onclick="changeLightboxImage(-1)"><i class="fas fa-arrow-left"></i></button>
+        
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="">
+        </div>
+        
+        <button class="l-btn l-next" onclick="changeLightboxImage(1)"><i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <script>
+        const scrollContainer = document.getElementById('gallery-scroll');
+        const thumb = document.getElementById('thumb');
+        const track = document.querySelector('.scroll-track');
+        const allImages = document.querySelectorAll('.gallery-item img');
+        let currentImgIndex = 0;
+
+        function scrollGallery(direction) {
+            scrollContainer.scrollBy({ left: direction * 450, behavior: 'smooth' });
+        }
+
+        // Lightbox Logic
+        function openLightbox(index) {
+            currentImgIndex = index;
+            document.getElementById('lightbox-img').src = allImages[index].src;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Stop background scroll
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeLightboxImage(direction) {
+            currentImgIndex += direction;
+            if (currentImgIndex >= allImages.length) currentImgIndex = 0;
+            if (currentImgIndex < 0) currentImgIndex = allImages.length - 1;
+            document.getElementById('lightbox-img').src = allImages[currentImgIndex].src;
+        }
+
+        // Closing lightbox on outside click
+        document.getElementById('lightbox').onclick = function(e) {
+            if (e.target.id === 'lightbox' || e.target.className === 'lightbox-content') {
+                closeLightbox();
+            }
+        };
+
+        // Scroll Bar Indicator
+        scrollContainer.addEventListener('scroll', () => {
+            const scrollWidth = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            const trackWidth = track.clientWidth - thumb.clientWidth;
+            const movePercentage = (scrollContainer.scrollLeft / scrollWidth) * trackWidth;
+            thumb.style.transform = `translateX(${movePercentage}px)`;
+        });
+    </script>
+
+    <footer><p>© 2026 Shree Swami Samarth Coaching & Art Classes</p></footer>
+</body>
+</html>

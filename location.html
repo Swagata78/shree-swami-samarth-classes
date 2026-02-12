@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Location - Shree Swami Samarth Classes</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --orange: #FF6B00; 
+            --black: #1A1A1A; 
+            --grey: #f4f4f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { 
+            background: var(--grey); 
+            padding: 20px; 
+            color: var(--black); 
+            min-height: 100vh;
+        }
+
+        .container { 
+            width: 100%;
+            max-width: 1100px; 
+            margin: auto; 
+        }
+
+        .back-btn { 
+            text-decoration: none; 
+            color: var(--orange); 
+            font-weight: 600; 
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px; 
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { color: var(--black); transform: translateX(-5px); }
+
+        .card { 
+            background: white; 
+            border-radius: 25px; 
+            overflow: hidden; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+        }
+
+        .info { 
+            padding: 40px; 
+            background: var(--black); 
+            color: white; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
+        }
+
+        .info h3 { 
+            color: var(--orange); 
+            margin-bottom: 12px; 
+            font-size: 1.2rem; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info p { font-size: 0.95rem; color: #d1d1d1; line-height: 1.6; }
+
+        /* Map Styling */
+        .map-box { 
+            height: 500px; 
+            width: 100%; 
+            border: none; 
+            display: block;
+            background: #eee; /* Shows a light grey box while loading */
+        }
+
+        @media (max-width: 768px) {
+            .map-box { height: 350px; }
+            .info { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back to Homepage
+    </a>
+    
+    <div class="card">
+        <div class="info">
+            <div class="info-item">
+                <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                <p>Purandar Colony, Bhekrainagar,<br>Hadapsar, Pune – 412308</p>
+            </div>
+            
+            <div class="info-item">
+                <h3><i class="fas fa-phone-alt"></i> Contact</h3>
+                <p>+91 7822879553</p>
+            </div>
+            
+            <div class="info-item">
+                <h3><i class="fas fa-share-alt"></i> Follow Us</h3>
+                <p style="margin-bottom: 8px;">
+                    <a href="https://www.instagram.com/shree.swami_samarth.classes?igsh=MXJsdmRkdmYxeGY2aQ==" target="_blank" style="color: #d1d1d1; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-instagram" style="color: #E4405F;"></i> Instagram
+                    </a>
+                </p>
+                <p>
+                    <a href="https://youtube.com/@chaitanyasurvase007.artist?si=92LTLaKlYJS2ZSpa" target="_blank" style="color: #d1d1d1; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <iframe 
+            class="map-box" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.444647318359!2d73.931444175189!3d18.463510982619714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2eb8f376c7611%3A0x81401da0e7d630f7!2sBhekrai%20Nagar%2C%20Hadapsar%2C%20Pune%2C%20Maharashtra%20412308!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+</div>
+
+</body>
+</html>
